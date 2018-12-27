@@ -1,0 +1,199 @@
+/* colors go here
+text: #c3c6c8;
+file separator: #3d4247;
+accent: #36b802;
+background: #151618;
+*/
+
+html, body {
+	height: 96%;
+}
+
+body {
+	padding: 2% 12.5% 0px 12.5%;
+	background: #151618;
+	color: #36b802;
+}
+
+hr {
+	margin: 0px;
+}
+
+.main-panel {
+	height: 100%;
+	background: #2d3034;
+}
+
+
+.button {
+	display: inline-block;
+	margin: 5px;
+	border-radius: 3px;
+}
+
+.button:hover {
+	background: #36b802;
+	color: #151618;
+}
+
+.button img {
+	max-width: 30px;
+	max-height: 100%;
+}
+
+.letter-icon {
+	display: inline-block;
+	padding: 0px 2px;
+	font-size: 50px;
+	margin:0px 5px 0px 5px;
+}
+
+.letter-icon#bold {
+	font-weight: bold;
+}
+
+.letter-icon:hover {
+	color: #151618;
+}
+
+.top-bar{
+	height: 10%;
+	padding: 7px;
+}
+
+.separator {
+	display: inline-block;
+	float: left;
+	height: 100%;
+	width: 0.5%;
+	background: #151618;
+}
+
+.left-sidebar {
+	display: inline-block;
+	float:left;
+	width: 25%;
+	height: 100%;
+}
+
+.search {
+	display: inline-block;
+	/*
+	position: relative;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	*/
+}
+
+.search input {
+	display: inline-block;
+	border-radius: 8px;
+	padding: 4px;
+	background: inherit;
+	color: #c3c6c8;
+	border-color: #3d4247;
+/*
+	position: relative;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -10%)
+*/
+	width: 80px;
+}
+
+.other-files .file-header {
+	font-size: 1.3em;
+	margin: 2%;
+}
+
+.other-files .file-content {
+	margin: 2%;
+}
+
+.other-file:hover {
+	color: #151618;
+	background-color: #36b802;
+}
+
+.file-separator {
+	width: 99%;
+	height: 5px;
+	border-radius: 3px;
+	background: #3d4247;
+	margin: auto;
+}
+
+.central-section {
+	display: inline-block;
+	float:left;
+	width: 64%;
+	height: 100%;
+}
+
+.central-section textarea{
+	height: 75%;
+	width: 90%;
+	resize: none;
+	margin: 5% 5% 5% 5%;
+	border-radius: 8px;
+	background: inherit;
+	padding: 1%;
+	color: #c3c6c8;
+	font-size: 20px;
+}
+
+.text-field {
+	width: 100%;
+	height: 100%;
+}
+
+.right-sidebar {
+	display: inline-block;
+	float:left;
+	width: 10%;
+	height: 100%;
+}
+
+.text-manipulation {
+	display: inline-block;
+	height: 100%;
+	/*margin:0px 5px 0px 5px;
+	#height: 30px;*/
+}
+
+.alignment {
+	display: inline-block;
+}
+
+.file-operations {
+	display: inline-block;
+	float:right;
+	margin:0px 5px 0px 5px;
+}
+
+.text-field{
+	width: 100%;
+}
+
+.user-icon img{
+	max-width: 45px;
+	max-height: 45px;
+	margin-left: 30%;
+}
+
+.collaborator-sign{
+	text-align: center;
+	margin: 5%;
+}
+
+.collaborator-icon{
+	margin-left: 35%;
+	margin-right: 15%;
+	margin-top: 10%;
+}
+
+.collaborator-icon img{
+	width: 35px;
+	height: 35px;
+}
