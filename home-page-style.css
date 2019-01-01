@@ -66,3 +66,40 @@ hr {
 	border-radius: 5px;
 	background: #3d4247;
 }
+
+form {
+	display: inline-block;
+	float: left;
+	background: #237801;
+	color: #151618;
+	width: 38.5%;
+	height: 86.5%;
+	position: relative;
+	#margin: .5% 15% 0% 15%;
+}
+
+.field {
+	margin: 2% 5%;
+}
+
+.field-label {
+	font-size: 30px;
+}
+
+input {
+	width: 90%;
+	height: 40px;
+	font-size: 30px;
+	border-radius: 8px;
+}
+
+input[type="submit"] {
+	position: absolute;
+	margin: 2.5%;
+	width: 90%;
+	bottom: 0;
+}
+
+input[type="submit"]:hover {
+	background: #BBB;
+}

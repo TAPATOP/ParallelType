@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title> ParallelType Home </title>
 		<link href="home-page-style.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</head>
 
 	<body>
@@ -14,7 +15,7 @@
 		</div>
 		<hr>
 		<div class="button-container">
-			<div class="button">
+			<div class="button" id="login">
 				<img src="images/login-icon.png">
 				<div class="label">
 					LOGIN
@@ -22,12 +23,54 @@
 			</div>
 			<div class="separator">
 			</div>
-			<div class="button">
+			<div class="button" id="register">
 				<img src="images/register-icon.png">
 				<div class="label">
 					REGISTER
 				</div>
 			</div>
 		</div>
+		<script>
+		$( ".button" ).click(function() {
+			var change;
+
+			if(this.id == "register") {
+				change = 
+			  	"<form> \
+			  		<div class=\"field\"> \
+			  			<div class=\"field-label\">Username: </div>\
+			  			<input placeholder=\"Ivan Ivanovich\"></input>\
+			  		</div>\
+			  		<div class=\"field\"> \
+			  			<div class=\"field-label\">Password: </div>\
+			  			<input type=\"password\"></input>\
+			  		</div>\
+			  		<div class=\"field\"> \
+			  			<div class=\"field-label\">Repeat password: </div>\
+			  			<input type=\"password\"></input>\
+			  		</div>\
+			  		<div class=\"field\"> \
+			  			<div class=\"field-label\">E-mail: </div>\
+			  			<input placeholder=\"name@domain.extention\"></input>\
+			  		</div>\
+			  		<input type=\"submit\"></input>\
+			  	</form>"
+		  	} else {
+		  		change =
+		  		"<form> \
+			  		<div class=\"field\"> \
+			  			<div class=\"field-label\">E-mail: </div>\
+			  			<input placeholder=\"name@domain.extention\"></input>\
+			  		</div>\
+			  		<div class=\"field\"> \
+			  			<div class=\"field-label\">Password: </div>\
+			  			<input type=\"password\"></input>\
+			  		</div>\
+			  		<input type=\"submit\"></input>\
+			  	</form>"
+		  	}
+		  $( this ).replaceWith( change );
+		});
+		</script>
 	</body>
 </html>
