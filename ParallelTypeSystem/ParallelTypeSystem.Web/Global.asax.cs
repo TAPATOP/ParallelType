@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParallelTypeSystem.Web.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,6 +19,12 @@ namespace ParallelTypeSystem.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // Configure AutoFac  
+            AutofacWebapiConfig.Initialize(GlobalConfiguration.Configuration);
+
+            // Configure Automapper
+            AutomapperConfig.ConfigureMappings();
         }
     }
 }

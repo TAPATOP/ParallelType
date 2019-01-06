@@ -12,15 +12,15 @@ namespace ParallelTypeSystem.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class UsersFiles
+    public partial class FileVersion
     {
         public int Id { get; set; }
         public int FileId { get; set; }
-        public int UserId { get; set; }
-        public int PermissionTypeId { get; set; }
+        public string Directory { get; set; }
+        public int Version { get; set; }
+        public string Changes { get; set; }
+        public System.DateTime ModifiedAt { get; set; }
     
-        public virtual Files Files { get; set; }
-        public virtual PermissionTypes PermissionTypes { get; set; }
-        public virtual Users Users { get; set; }
+        public virtual File File { get; set; }
     }
 }

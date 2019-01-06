@@ -12,27 +12,27 @@ namespace ParallelTypeSystem.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Files
+    public partial class File
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Files()
+        public File()
         {
-            this.FileVersions = new HashSet<FileVersions>();
-            this.UsersFiles = new HashSet<UsersFiles>();
+            this.FileVersions = new HashSet<FileVersion>();
+            this.UsersFiles = new HashSet<UsersFile>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string Guid { get; set; }
-        public int CreatorId { get; set; }
+        public string CreatorId { get; set; }
         public bool PublicReadAll { get; set; }
         public bool PublicWriteAll { get; set; }
         public System.DateTime CreatedAt { get; set; }
     
-        public virtual Users Users { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FileVersions> FileVersions { get; set; }
+        public virtual ICollection<FileVersion> FileVersions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsersFiles> UsersFiles { get; set; }
+        public virtual ICollection<UsersFile> UsersFiles { get; set; }
     }
 }

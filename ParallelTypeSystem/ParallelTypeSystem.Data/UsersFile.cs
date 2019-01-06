@@ -12,18 +12,15 @@ namespace ParallelTypeSystem.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class PermissionTypes
+    public partial class UsersFile
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PermissionTypes()
-        {
-            this.UsersFiles = new HashSet<UsersFiles>();
-        }
-    
         public int Id { get; set; }
-        public string Code { get; set; }
+        public int FileId { get; set; }
+        public string UserId { get; set; }
+        public int PermissionTypeId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsersFiles> UsersFiles { get; set; }
+        public virtual File File { get; set; }
+        public virtual PermissionType PermissionType { get; set; }
+        public virtual User User { get; set; }
     }
 }

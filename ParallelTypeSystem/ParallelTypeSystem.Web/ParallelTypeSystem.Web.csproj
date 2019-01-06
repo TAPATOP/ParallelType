@@ -240,6 +240,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -251,6 +252,8 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\AutofacWebapiConfig.cs" />
+    <Compile Include="Utils\AutomapperConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -317,6 +320,20 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ParallelTypeSystem.Data\ParallelTypeSystem.Data.csproj">
+      <Project>{F12F59A7-6FA0-4323-A237-A800FD498987}</Project>
+      <Name>ParallelTypeSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParallelTypeSystem.Interfaces\ParallelTypeSystem.Interfaces.csproj">
+      <Project>{A2BAA99E-329F-4144-B1A3-2FBD6600FB99}</Project>
+      <Name>ParallelTypeSystem.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParallelTypeSystem.Services\ParallelTypeSystem.Services.csproj">
+      <Project>{E2ECA737-1722-40E1-A21D-9935B02C6128}</Project>
+      <Name>ParallelTypeSystem.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

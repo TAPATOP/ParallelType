@@ -12,7 +12,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Guid" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreatorId" Type="int" Nullable="false" />
+          <Property Name="CreatorId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PublicReadAll" Type="bit" Nullable="false" />
           <Property Name="PublicWriteAll" Type="bit" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
@@ -39,7 +39,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
@@ -50,7 +50,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FileId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PermissionTypeId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Files_Users">
@@ -145,48 +145,48 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ParallelTypeSystem.Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ParallelTypeSystemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Files" EntityType="ParallelTypeSystem.Data.Files" />
-          <EntitySet Name="FileVersions" EntityType="ParallelTypeSystem.Data.FileVersions" />
-          <EntitySet Name="PermissionTypes" EntityType="ParallelTypeSystem.Data.PermissionTypes" />
-          <EntitySet Name="Users" EntityType="ParallelTypeSystem.Data.Users" />
-          <EntitySet Name="UsersFiles" EntityType="ParallelTypeSystem.Data.UsersFiles" />
+          <EntitySet Name="Files" EntityType="ParallelTypeSystem.Data.File" />
+          <EntitySet Name="FileVersions" EntityType="ParallelTypeSystem.Data.FileVersion" />
+          <EntitySet Name="PermissionTypes" EntityType="ParallelTypeSystem.Data.PermissionType" />
+          <EntitySet Name="Users" EntityType="ParallelTypeSystem.Data.User" />
+          <EntitySet Name="UsersFiles" EntityType="ParallelTypeSystem.Data.UsersFile" />
           <AssociationSet Name="FK_Files_Users" Association="ParallelTypeSystem.Data.FK_Files_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Files" EntitySet="Files" />
+            <End Role="User" EntitySet="Users" />
+            <End Role="File" EntitySet="Files" />
           </AssociationSet>
           <AssociationSet Name="FK_FileVersions_Files" Association="ParallelTypeSystem.Data.FK_FileVersions_Files">
-            <End Role="Files" EntitySet="Files" />
-            <End Role="FileVersions" EntitySet="FileVersions" />
+            <End Role="File" EntitySet="Files" />
+            <End Role="FileVersion" EntitySet="FileVersions" />
           </AssociationSet>
           <AssociationSet Name="FK_UsersFiles_Files" Association="ParallelTypeSystem.Data.FK_UsersFiles_Files">
-            <End Role="Files" EntitySet="Files" />
-            <End Role="UsersFiles" EntitySet="UsersFiles" />
+            <End Role="File" EntitySet="Files" />
+            <End Role="UsersFile" EntitySet="UsersFiles" />
           </AssociationSet>
           <AssociationSet Name="FK_UsersFiles_PermissionTypes" Association="ParallelTypeSystem.Data.FK_UsersFiles_PermissionTypes">
-            <End Role="PermissionTypes" EntitySet="PermissionTypes" />
-            <End Role="UsersFiles" EntitySet="UsersFiles" />
+            <End Role="PermissionType" EntitySet="PermissionTypes" />
+            <End Role="UsersFile" EntitySet="UsersFiles" />
           </AssociationSet>
           <AssociationSet Name="FK_UsersFiles_Users" Association="ParallelTypeSystem.Data.FK_UsersFiles_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UsersFiles" EntitySet="UsersFiles" />
+            <End Role="User" EntitySet="Users" />
+            <End Role="UsersFile" EntitySet="UsersFiles" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Files">
+        <EntityType Name="File">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Guid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatorId" Type="Int32" Nullable="false" />
+          <Property Name="CreatorId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PublicReadAll" Type="Boolean" Nullable="false" />
           <Property Name="PublicWriteAll" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Users" Relationship="ParallelTypeSystem.Data.FK_Files_Users" FromRole="Files" ToRole="Users" />
-          <NavigationProperty Name="FileVersions" Relationship="ParallelTypeSystem.Data.FK_FileVersions_Files" FromRole="Files" ToRole="FileVersions" />
-          <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Files" FromRole="Files" ToRole="UsersFiles" />
+          <NavigationProperty Name="User" Relationship="ParallelTypeSystem.Data.FK_Files_Users" FromRole="File" ToRole="User" />
+          <NavigationProperty Name="FileVersions" Relationship="ParallelTypeSystem.Data.FK_FileVersions_Files" FromRole="File" ToRole="FileVersion" />
+          <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Files" FromRole="File" ToRole="UsersFile" />
         </EntityType>
-        <EntityType Name="FileVersions">
+        <EntityType Name="FileVersion">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -196,107 +196,107 @@
           <Property Name="Version" Type="Int32" Nullable="false" />
           <Property Name="Changes" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Files" Relationship="ParallelTypeSystem.Data.FK_FileVersions_Files" FromRole="FileVersions" ToRole="Files" />
+          <NavigationProperty Name="File" Relationship="ParallelTypeSystem.Data.FK_FileVersions_Files" FromRole="FileVersion" ToRole="File" />
         </EntityType>
-        <EntityType Name="PermissionTypes">
+        <EntityType Name="PermissionType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_PermissionTypes" FromRole="PermissionTypes" ToRole="UsersFiles" />
+          <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_PermissionTypes" FromRole="PermissionType" ToRole="UsersFile" />
         </EntityType>
-        <EntityType Name="Users">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Files" Relationship="ParallelTypeSystem.Data.FK_Files_Users" FromRole="Users" ToRole="Files" />
-          <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Users" FromRole="Users" ToRole="UsersFiles" />
+          <NavigationProperty Name="Files" Relationship="ParallelTypeSystem.Data.FK_Files_Users" FromRole="User" ToRole="File" />
+          <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Users" FromRole="User" ToRole="UsersFile" />
         </EntityType>
-        <EntityType Name="UsersFiles">
+        <EntityType Name="UsersFile">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FileId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PermissionTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Files" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Files" FromRole="UsersFiles" ToRole="Files" />
-          <NavigationProperty Name="PermissionTypes" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_PermissionTypes" FromRole="UsersFiles" ToRole="PermissionTypes" />
-          <NavigationProperty Name="Users" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Users" FromRole="UsersFiles" ToRole="Users" />
+          <NavigationProperty Name="File" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Files" FromRole="UsersFile" ToRole="File" />
+          <NavigationProperty Name="PermissionType" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_PermissionTypes" FromRole="UsersFile" ToRole="PermissionType" />
+          <NavigationProperty Name="User" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Users" FromRole="UsersFile" ToRole="User" />
         </EntityType>
         <Association Name="FK_Files_Users">
-          <End Type="ParallelTypeSystem.Data.Users" Role="Users" Multiplicity="1" />
-          <End Type="ParallelTypeSystem.Data.Files" Role="Files" Multiplicity="*" />
+          <End Type="ParallelTypeSystem.Data.User" Role="User" Multiplicity="1" />
+          <End Type="ParallelTypeSystem.Data.File" Role="File" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Files">
+            <Dependent Role="File">
               <PropertyRef Name="CreatorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FileVersions_Files">
-          <End Type="ParallelTypeSystem.Data.Files" Role="Files" Multiplicity="1" />
-          <End Type="ParallelTypeSystem.Data.FileVersions" Role="FileVersions" Multiplicity="*" />
+          <End Type="ParallelTypeSystem.Data.File" Role="File" Multiplicity="1" />
+          <End Type="ParallelTypeSystem.Data.FileVersion" Role="FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Files">
+            <Principal Role="File">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="FileVersions">
+            <Dependent Role="FileVersion">
               <PropertyRef Name="FileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsersFiles_Files">
-          <End Type="ParallelTypeSystem.Data.Files" Role="Files" Multiplicity="1" />
-          <End Type="ParallelTypeSystem.Data.UsersFiles" Role="UsersFiles" Multiplicity="*" />
+          <End Type="ParallelTypeSystem.Data.File" Role="File" Multiplicity="1" />
+          <End Type="ParallelTypeSystem.Data.UsersFile" Role="UsersFile" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Files">
+            <Principal Role="File">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UsersFiles">
+            <Dependent Role="UsersFile">
               <PropertyRef Name="FileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsersFiles_PermissionTypes">
-          <End Type="ParallelTypeSystem.Data.PermissionTypes" Role="PermissionTypes" Multiplicity="1" />
-          <End Type="ParallelTypeSystem.Data.UsersFiles" Role="UsersFiles" Multiplicity="*" />
+          <End Type="ParallelTypeSystem.Data.PermissionType" Role="PermissionType" Multiplicity="1" />
+          <End Type="ParallelTypeSystem.Data.UsersFile" Role="UsersFile" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PermissionTypes">
+            <Principal Role="PermissionType">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UsersFiles">
+            <Dependent Role="UsersFile">
               <PropertyRef Name="PermissionTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsersFiles_Users">
-          <End Type="ParallelTypeSystem.Data.Users" Role="Users" Multiplicity="1" />
-          <End Type="ParallelTypeSystem.Data.UsersFiles" Role="UsersFiles" Multiplicity="*" />
+          <End Type="ParallelTypeSystem.Data.User" Role="User" Multiplicity="1" />
+          <End Type="ParallelTypeSystem.Data.UsersFile" Role="UsersFile" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UsersFiles">
+            <Dependent Role="UsersFile">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ParallelTypeSystemDataStoreContainer" CdmEntityContainer="ParallelTypeSystemEntities">
           <EntitySetMapping Name="Files">
-            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.Files">
+            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.File">
               <MappingFragment StoreEntitySet="Files">
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="PublicWriteAll" ColumnName="PublicWriteAll" />
@@ -309,7 +309,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FileVersions">
-            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.FileVersions">
+            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.FileVersion">
               <MappingFragment StoreEntitySet="FileVersions">
                 <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
                 <ScalarProperty Name="Changes" ColumnName="Changes" />
@@ -321,7 +321,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PermissionTypes">
-            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.PermissionTypes">
+            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.PermissionType">
               <MappingFragment StoreEntitySet="PermissionTypes">
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -329,7 +329,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.Users">
+            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -339,7 +339,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UsersFiles">
-            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.UsersFiles">
+            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.UsersFile">
               <MappingFragment StoreEntitySet="UsersFiles">
                 <ScalarProperty Name="PermissionTypeId" ColumnName="PermissionTypeId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -362,7 +362,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

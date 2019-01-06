@@ -25,10 +25,10 @@ namespace ParallelTypeSystem.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Files> Files { get; set; }
-        public virtual DbSet<FileVersions> FileVersions { get; set; }
-        public virtual DbSet<PermissionTypes> PermissionTypes { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<UsersFiles> UsersFiles { get; set; }
+        public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<FileVersion> FileVersions { get; set; }
+        public virtual DbSet<PermissionType> PermissionTypes { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UsersFile> UsersFiles { get; set; }
     }
 }

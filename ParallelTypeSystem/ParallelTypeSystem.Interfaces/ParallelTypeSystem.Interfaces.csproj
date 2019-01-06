@@ -40,7 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ParallelTypeSystem.Common\ParallelTypeSystem.Common.csproj">
+      <Project>{18d17706-a998-4216-9ecd-64c9a99b91d3}</Project>
+      <Name>ParallelTypeSystem.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParallelTypeSystem.Data\ParallelTypeSystem.Data.csproj">
+      <Project>{f12f59a7-6fa0-4323-a237-a800fd498987}</Project>
+      <Name>ParallelTypeSystem.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
