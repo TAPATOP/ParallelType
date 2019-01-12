@@ -56,7 +56,7 @@ hr {
 	color: #151618;
 }
 
-.top-bar{
+.top-bar {
 	height: 10%;
 	padding: 7px;
 }
@@ -131,7 +131,7 @@ hr {
 	height: 100%;
 }
 
-.central-section textarea{
+.central-section textarea {
 	height: 75%;
 	width: 90%;
 	resize: none;
@@ -172,28 +172,28 @@ hr {
 	margin:0px 5px 0px 5px;
 }
 
-.text-field{
+.text-field {
 	width: 100%;
 }
 
-.user-icon img{
+.user-icon img {
 	max-width: 45px;
 	max-height: 45px;
 	margin-left: 30%;
 }
 
-.collaborator-sign{
+.collaborator-sign {
 	text-align: center;
 	margin: 5%;
 }
 
-.collaborator-icon{
+.collaborator-icon {
 	margin-left: 35%;
 	margin-right: 15%;
 	margin-top: 10%;
 }
 
-.collaborator-icon img{
+.collaborator-icon img {
 	width: 35px;
 	height: 35px;
 }
