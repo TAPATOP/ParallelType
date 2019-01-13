@@ -33,7 +33,7 @@ namespace ParallelTypeSystem.Services
 
         public User GetByUsername(string username)
         {
-            var result = this.GetAll().FirstOrDefault(x => x.Username == username);
+            var result = this.GetAll().FirstOrDefault(x => x.UserName == username);
             return result;
         }
     }

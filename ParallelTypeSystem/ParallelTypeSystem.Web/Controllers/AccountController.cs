@@ -331,7 +331,7 @@ namespace ParallelTypeSystem.Web.Controllers
 
             var user = new User()
             {
-                Username = model.Username,
+                UserName = model.Username,
                 Email = model.Email,
             };
 
@@ -362,7 +362,7 @@ namespace ParallelTypeSystem.Web.Controllers
                 return InternalServerError();
             }
 
-            var user = new User() { Username = model.Email, Email = model.Email };
+            var user = new User() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)

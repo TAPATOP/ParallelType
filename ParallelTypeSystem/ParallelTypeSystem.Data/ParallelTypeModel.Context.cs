@@ -25,15 +25,16 @@ namespace ParallelTypeSystem.Data
         {
             throw new UnintentionalCodeFirstException();
         }
-
+        
         public static ParallelTypeSystemEntities Create()
         {
             return new ParallelTypeSystemEntities();
         }
-
+        
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<FileVersion> FileVersions { get; set; }
         public virtual DbSet<PermissionType> PermissionTypes { get; set; }
         public virtual DbSet<UsersFile> UsersFiles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

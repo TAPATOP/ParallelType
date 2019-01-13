@@ -40,7 +40,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Username" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -148,12 +148,7 @@
           <EntitySet Name="Files" EntityType="ParallelTypeSystem.Data.File" />
           <EntitySet Name="FileVersions" EntityType="ParallelTypeSystem.Data.FileVersion" />
           <EntitySet Name="PermissionTypes" EntityType="ParallelTypeSystem.Data.PermissionType" />
-          <EntitySet Name="Users" EntityType="ParallelTypeSystem.Data.User" />
           <EntitySet Name="UsersFiles" EntityType="ParallelTypeSystem.Data.UsersFile" />
-          <AssociationSet Name="FK_Files_Users" Association="ParallelTypeSystem.Data.FK_Files_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="File" EntitySet="Files" />
-          </AssociationSet>
           <AssociationSet Name="FK_FileVersions_Files" Association="ParallelTypeSystem.Data.FK_FileVersions_Files">
             <End Role="File" EntitySet="Files" />
             <End Role="FileVersion" EntitySet="FileVersions" />
@@ -165,6 +160,11 @@
           <AssociationSet Name="FK_UsersFiles_PermissionTypes" Association="ParallelTypeSystem.Data.FK_UsersFiles_PermissionTypes">
             <End Role="PermissionType" EntitySet="PermissionTypes" />
             <End Role="UsersFile" EntitySet="UsersFiles" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="ParallelTypeSystem.Data.User" />
+          <AssociationSet Name="FK_Files_Users" Association="ParallelTypeSystem.Data.FK_Files_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="File" EntitySet="Files" />
           </AssociationSet>
           <AssociationSet Name="FK_UsersFiles_Users" Association="ParallelTypeSystem.Data.FK_UsersFiles_Users">
             <End Role="User" EntitySet="Users" />
@@ -182,9 +182,9 @@
           <Property Name="PublicReadAll" Type="Boolean" Nullable="false" />
           <Property Name="PublicWriteAll" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="ParallelTypeSystem.Data.FK_Files_Users" FromRole="File" ToRole="User" />
           <NavigationProperty Name="FileVersions" Relationship="ParallelTypeSystem.Data.FK_FileVersions_Files" FromRole="File" ToRole="FileVersion" />
           <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Files" FromRole="File" ToRole="UsersFile" />
+          <NavigationProperty Name="User" Relationship="ParallelTypeSystem.Data.FK_Files_Users" FromRole="File" ToRole="User" />
         </EntityType>
         <EntityType Name="FileVersion">
           <Key>
@@ -206,17 +206,6 @@
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_PermissionTypes" FromRole="PermissionType" ToRole="UsersFile" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Files" Relationship="ParallelTypeSystem.Data.FK_Files_Users" FromRole="User" ToRole="File" />
-          <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Users" FromRole="User" ToRole="UsersFile" />
-        </EntityType>
         <EntityType Name="UsersFile">
           <Key>
             <PropertyRef Name="Id" />
@@ -229,18 +218,6 @@
           <NavigationProperty Name="PermissionType" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_PermissionTypes" FromRole="UsersFile" ToRole="PermissionType" />
           <NavigationProperty Name="User" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Users" FromRole="UsersFile" ToRole="User" />
         </EntityType>
-        <Association Name="FK_Files_Users">
-          <End Type="ParallelTypeSystem.Data.User" Role="User" Multiplicity="1" />
-          <End Type="ParallelTypeSystem.Data.File" Role="File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="File">
-              <PropertyRef Name="CreatorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FileVersions_Files">
           <End Type="ParallelTypeSystem.Data.File" Role="File" Multiplicity="1" />
           <End Type="ParallelTypeSystem.Data.FileVersion" Role="FileVersion" Multiplicity="*" />
@@ -274,6 +251,29 @@
             </Principal>
             <Dependent Role="UsersFile">
               <PropertyRef Name="PermissionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Files" Relationship="ParallelTypeSystem.Data.FK_Files_Users" FromRole="User" ToRole="File" />
+          <NavigationProperty Name="UsersFiles" Relationship="ParallelTypeSystem.Data.FK_UsersFiles_Users" FromRole="User" ToRole="UsersFile" />
+        </EntityType>
+        <Association Name="FK_Files_Users">
+          <End Type="ParallelTypeSystem.Data.User" Role="User" Multiplicity="1" />
+          <End Type="ParallelTypeSystem.Data.File" Role="File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="CreatorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -328,22 +328,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UsersFiles">
             <EntityTypeMapping TypeName="ParallelTypeSystem.Data.UsersFile">
               <MappingFragment StoreEntitySet="UsersFiles">
                 <ScalarProperty Name="PermissionTypeId" ColumnName="PermissionTypeId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ParallelTypeSystem.Data.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

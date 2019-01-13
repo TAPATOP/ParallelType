@@ -29,10 +29,10 @@ namespace ParallelTypeSystem.Data
         public bool PublicWriteAll { get; set; }
         public System.DateTime CreatedAt { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileVersion> FileVersions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsersFile> UsersFiles { get; set; }
+        public virtual User User { get; set; }
     }
 }

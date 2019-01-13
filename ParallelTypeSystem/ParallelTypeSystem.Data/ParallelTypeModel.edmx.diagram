@@ -8,12 +8,12 @@
         <EntityTypeShape EntityType="ParallelTypeSystem.Data.File" Width="1.5" PointX="3" PointY="3.125" />
         <EntityTypeShape EntityType="ParallelTypeSystem.Data.FileVersion" Width="1.5" PointX="5.25" PointY="3.375" />
         <EntityTypeShape EntityType="ParallelTypeSystem.Data.PermissionType" Width="1.5" PointX="6" PointY="0.75" />
-        <EntityTypeShape EntityType="ParallelTypeSystem.Data.User" Width="1.5" PointX="0.75" PointY="3.5" />
         <EntityTypeShape EntityType="ParallelTypeSystem.Data.UsersFile" Width="1.5" PointX="8.25" PointY="3.375" />
-        <AssociationConnector Association="ParallelTypeSystem.Data.FK_Files_Users" />
         <AssociationConnector Association="ParallelTypeSystem.Data.FK_FileVersions_Files" />
         <AssociationConnector Association="ParallelTypeSystem.Data.FK_UsersFiles_Files" />
         <AssociationConnector Association="ParallelTypeSystem.Data.FK_UsersFiles_PermissionTypes" />
+        <EntityTypeShape EntityType="ParallelTypeSystem.Data.User" Width="1.5" PointX="0.75" PointY="3.5" />
+        <AssociationConnector Association="ParallelTypeSystem.Data.FK_Files_Users" />
         <AssociationConnector Association="ParallelTypeSystem.Data.FK_UsersFiles_Users" />
       </Diagram>
     </edmx:Diagrams>
