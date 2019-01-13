@@ -9,11 +9,12 @@
 
 namespace ParallelTypeSystem.Data
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
-    public partial class ParallelTypeSystemEntities : DbContext
+
+    public partial class ParallelTypeSystemEntities : IdentityDbContext<User>
     {
         public ParallelTypeSystemEntities()
             : base("name=ParallelTypeSystemEntities")
@@ -24,11 +25,15 @@ namespace ParallelTypeSystem.Data
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
+        public static ParallelTypeSystemEntities Create()
+        {
+            return new ParallelTypeSystemEntities();
+        }
+
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<FileVersion> FileVersions { get; set; }
         public virtual DbSet<PermissionType> PermissionTypes { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UsersFile> UsersFiles { get; set; }
     }
 }
