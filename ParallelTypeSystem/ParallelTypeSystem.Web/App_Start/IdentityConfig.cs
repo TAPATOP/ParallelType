@@ -6,6 +6,8 @@ using Microsoft.Owin;
 using ParallelTypeSystem.Web.Models;
 using ParallelTypeSystem.Models.DomainModels;
 using ParallelTypeSystem.Data;
+using System.Security.Claims;
+using Microsoft.Owin.Security;
 
 namespace ParallelTypeSystem.Web
 {
@@ -42,6 +44,25 @@ namespace ParallelTypeSystem.Web
                 manager.UserTokenProvider = new DataProtectorTokenProvider<User>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
+        }
+    }
+
+    // Configure the application sign-in manager which is used in this application.
+    public class ApplicationSignInManager : SignInManager<User, string>
+    {
+        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
+            : base(userManager, authenticationManager)
+        {
+        }
+
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(User user)
+        {
+            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager, DefaultAuthenticationTypes.ApplicationCookie);
+        }
+
+        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
+        {
+            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
 }

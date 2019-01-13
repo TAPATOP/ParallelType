@@ -241,9 +241,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CookieController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -255,11 +256,28 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\AutofacWebapiConfig.cs" />
     <Compile Include="Utils\AutomapperConfig.cs" />
+    <Compile Include="Utils\CustomAuthorize.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\home-page-style.css" />
+    <Content Include="Content\images\align-central.png" />
+    <Content Include="Content\images\align-justify.png" />
+    <Content Include="Content\images\align-left.png" />
+    <Content Include="Content\images\align-right.png" />
+    <Content Include="Content\images\bold.png" />
+    <Content Include="Content\images\history.png" />
+    <Content Include="Content\images\icon.jpg" />
+    <Content Include="Content\images\login-icon.png" />
+    <Content Include="Content\images\new-file.png" />
+    <Content Include="Content\images\register-icon.png" />
+    <Content Include="Content\images\share.png" />
+    <Content Include="Content\images\statistics.png" />
+    <Content Include="Content\images\tag.png" />
+    <Content Include="Content\images\Untitled-1.png" />
+    <Content Include="Content\text-editor-style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -314,6 +332,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Documents\Editor.cshtml" />
+    <Content Include="Views\Documents\ViewAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
