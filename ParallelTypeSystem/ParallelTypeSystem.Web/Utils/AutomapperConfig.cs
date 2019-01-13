@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ParallelTypeSystem.Models.DomainModels;
 using ParallelTypeSystem.Models.DTOs;
+using ParallelTypeSystem.Web.Models;
 
 namespace ParallelTypeSystem.Web.Utils
 {
@@ -11,6 +12,7 @@ namespace ParallelTypeSystem.Web.Utils
             Mapper.Initialize(config =>
             {
                 config.CreateMap<User, UserDTO>();
+                config.CreateMap<AddFileViewModel, File>();
             });
         }
     }

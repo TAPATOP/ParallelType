@@ -32,13 +32,15 @@ hr {
 }
 
 .button:hover {
-	background: #36b802;
+	background: grey;
 	color: #151618;
+    cursor: pointer;
 }
 
 .button img {
 	max-width: 30px;
 	max-height: 100%;
+    cursor: pointer;
 }
 
 .letter-icon {

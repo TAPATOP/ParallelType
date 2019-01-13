@@ -6,11 +6,11 @@
             <div class="button">
                 <img src="~/Content/images/tag.png">
             </div>
-            <form class="search" action="">
+            <div class="search" action="">
                 <input type="text" name="search-string">
-            </form>
-            <div class="button">
-                <img src="~/Content/images/new-file.png">
+            </div>
+            <div class="button" id="btn-add-document">
+                <img src="~/Content/images/new-file.png" title="Add new document">
             </div>
         </div>
         <hr>
@@ -132,3 +132,70 @@
 </div>
 <div class="sent-to-server">
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="modal-form" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <button type="button" class="close" onclick="closeModal()" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeModal()">Close</button>
+                    <button type="button" class="btn btn-primary modal-submit-button" onclick="submitForm(this)">Submit</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    function showModal(title, bodyHtml) {
+        $('#myModal .modal-title').html(title);
+        $('#myModal .modal-body').html(bodyHtml);
+        $('#myModal').modal('show');
+    }
+
+    $('.button').click(function (e) {
+        var btn = e.target.closest('.button');
+        if ($(btn).attr('id') == 'btn-add-document') {
+            var nameLabel = $('<label for="name" style="display: block">Document name</label>');
+            var nameInput = $('<input name="name" />');
+
+            var publicReadAll = $('<label for="PublicReadAll">Can everybody view</label>');
+            var publicReadInput = $('<input type="checkbox" name="PublicReadAll" id="PublicReadAll" />');
+            var publicRead = $('<div>').append(publicReadInput).append(publicReadAll);
+
+            var publicWriteAll = $('<label for="PublicWriteAll">Can everybody edit</label>');
+            var publicWriteInput = $('<input type="checkbox" name="PublicWriteAll" id="PublicWriteAll" />');
+            var publicWrite = $('<div>').append(publicWriteInput).append(publicWriteAll);
+
+            var result = $('<div>');
+            result
+                .append(nameLabel)
+                .append(nameInput)
+                .append(publicRead)
+                .append(publicWrite)
+            showModal('Add new document', result.html());
+        }
+    });
+
+    function closeModal() {
+        debugger;
+        $('.modal-submit-button').removeAttr('disabled');
+    }
+
+    function submitForm(btn) {
+        $(btn).attr('disabled', 'disabled');
+
+        //TODO: ajax
+
+        return false;
+    }
+</script>
