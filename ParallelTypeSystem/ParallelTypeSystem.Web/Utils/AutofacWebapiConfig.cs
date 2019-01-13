@@ -1,15 +1,13 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using ParallelTypeSystem.Data;
-using ParallelTypeSystem.Interfaces;
-using ParallelTypeSystem.Services;
-using System;
-using System.Collections.Generic;
+using ParallelTypeSystem.Data.Repositories;
 using System.Data.Entity;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Http;
+using System.Linq;
+using ParallelTypeSystem.Services;
+using ParallelTypeSystem.Interfaces;
 
 namespace ParallelTypeSystem.Web.Utils
 {
@@ -21,7 +19,7 @@ namespace ParallelTypeSystem.Web.Utils
         {
             Initialize(config, RegisterServices(new ContainerBuilder()));
         }
-
+        
         public static void Initialize(HttpConfiguration config, IContainer container)
         {
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
@@ -32,14 +30,14 @@ namespace ParallelTypeSystem.Web.Utils
             //Register your Web API controllers.  
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            builder.RegisterType<ParallelTypeSystemEntities>()
+            builder.RegisterType<ParallelTypeSystemDbContext>()
                    .As<DbContext>()
                    .InstancePerRequest();
-
+            
             builder.RegisterType<DbFactory>()
                    .As<IDbFactory>()
                    .InstancePerRequest();
-
+            
             RegisterRepositories(builder);
 
             //Set the dependency resolver to be Autofac.  
@@ -50,6 +48,22 @@ namespace ParallelTypeSystem.Web.Utils
 
         private static void RegisterRepositories(ContainerBuilder builder)
         {
+            var repositoryAssembly = Assembly.GetAssembly(typeof(GenericRepository<>));
+            var types = repositoryAssembly.GetTypes()
+                .Where(x => x.IsClass && x.IsPublic && x.IsGenericType && x.GetInterfaces()?.Length > 0)
+                .Where(x => x.Name.Contains("Repository"))
+                .Select(x => new
+                {
+                    Type = x,
+                    Interface = x.GetInterfaces().FirstOrDefault()
+                })
+                .ToList();
+
+            types.ForEach(x =>
+            {
+                builder.RegisterGeneric(x.Type).As(x.Interface).InstancePerRequest();
+            });
+
             Assembly servicesAssembly = Assembly.GetAssembly(typeof(UserService));
             Assembly interfacesAssembly = Assembly.GetAssembly(typeof(IUserService));
             Assembly[] arr = { servicesAssembly, interfacesAssembly };

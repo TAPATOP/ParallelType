@@ -1,40 +1,39 @@
-﻿using ParallelTypeSystem.Data;
+﻿using AutoMapper.QueryableExtensions;
+using ParallelTypeSystem.Common;
+using ParallelTypeSystem.Data.Repositories;
 using ParallelTypeSystem.Interfaces;
-using System;
-using System.Collections.Generic;
+using ParallelTypeSystem.Models.DomainModels;
+using ParallelTypeSystem.Models.DTOs;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity;
 
 namespace ParallelTypeSystem.Services
 {
     public class UserService : IUserService
     {
-        private ParallelTypeSystemEntities dbContext;
-        private IDbFactory dbFactory { get; set; }
+        private readonly IGenericRepository<User> userRepository;
 
-        public UserService(IDbFactory dbFactory)
+        public UserService(IGenericRepository<User> userRepository)
         {
-            this.dbFactory = dbFactory;
+            this.userRepository = userRepository;
         }
 
-        public ParallelTypeSystemEntities DbContext
+        public IQueryable<UserDTO> GetAll()
         {
-            get { return dbContext ?? (dbContext = dbFactory.GetContext()); }
-        }
-
-        public IQueryable<User> GetAll()
-        {
-            var result = this.DbContext.Users.AsNoTracking();
+            var result = this.userRepository.GetAll().ProjectTo<UserDTO>();
             return result;
         }
-
-        public User GetByUsername(string username)
+        
+        public UserDTO GetUser(string username)
         {
-            var result = this.GetAll().FirstOrDefault(x => x.UserName == username);
-            return result;
+            var user = this.GetAll().FirstOrDefault(x => x.Username == username);
+            return user;
+        }
+
+        public string GetUsername(string userId)
+        {
+            var user = this.GetAll().FirstOrDefault(x => x.Id == userId);
+            string username = user?.Username;
+            return username;
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using ParallelTypeSystem.Web.Models;
+using ParallelTypeSystem.Models.DomainModels;
 using ParallelTypeSystem.Data;
 
 namespace ParallelTypeSystem.Web
@@ -19,7 +20,7 @@ namespace ParallelTypeSystem.Web
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<User>(context.Get<ParallelTypeSystemEntities>()));
+            var manager = new ApplicationUserManager(new UserStore<User>(context.Get<ParallelTypeSystemDbContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<User>(manager)
             {

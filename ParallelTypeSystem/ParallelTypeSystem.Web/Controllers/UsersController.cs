@@ -1,13 +1,11 @@
-﻿using ParallelTypeSystem.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using AutoMapper.QueryableExtensions;
+using ParallelTypeSystem.Interfaces;
+using ParallelTypeSystem.Models.DTOs;
 using System.Web.Http;
 
 namespace ParallelTypeSystem.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/Users")]
     public class UsersController : ApiController
     {
@@ -33,7 +31,7 @@ namespace ParallelTypeSystem.Web.Controllers
                 return BadRequest("Username is required");
             }
 
-            var user = this.userService.GetByUsername(username);
+            var user = this.userService.GetUser(username);
             if (user == null)
             {
                 return NotFound();

@@ -1,15 +1,21 @@
-﻿using System;
+﻿using AutoMapper.QueryableExtensions;
+using ParallelTypeSystem.Data.Repositories;
+using ParallelTypeSystem.Models.DomainModels;
+using ParallelTypeSystem.Models.DTOs;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace ParallelTypeSystem.Web.Controllers
 {
-    [Authorize]
     public class ValuesController : ApiController
     {
+        private readonly IGenericRepository<User> userRepository;
+
+        public ValuesController(IGenericRepository<User> userRepository)
+        {
+            this.userRepository = userRepository;
+        }
+
         // GET api/values
         public IEnumerable<string> Get()
         {

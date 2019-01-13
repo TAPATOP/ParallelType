@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ParallelTypeSystem.Interfaces")]
+[assembly: AssemblyTitle("ParallelTypeSystem.Models")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ParallelTypeSystem.Interfaces")]
+[assembly: AssemblyProduct("ParallelTypeSystem.Models")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("eebaa1c1-c985-4487-b9d6-7c8cf37aaa15")]
+[assembly: Guid("8b1a04e1-86d4-4d9a-8ed7-8dd9da83fe52")]
 
 // Version information for an assembly consists of the following four values:
 //

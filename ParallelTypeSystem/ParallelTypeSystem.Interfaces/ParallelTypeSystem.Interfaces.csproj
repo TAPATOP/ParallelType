@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A2BAA99E-329F-4144-B1A3-2FBD6600FB99}</ProjectGuid>
+    <ProjectGuid>{EEBAA1C1-C985-4487-B9D6-7C8CF37AAA15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ParallelTypeSystem.Interfaces</RootNamespace>
     <AssemblyName>ParallelTypeSystem.Interfaces</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -45,12 +45,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParallelTypeSystem.Common\ParallelTypeSystem.Common.csproj">
-      <Project>{18d17706-a998-4216-9ecd-64c9a99b91d3}</Project>
+      <Project>{2046f1cc-385a-492e-81ba-ab716da5d6af}</Project>
       <Name>ParallelTypeSystem.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\ParallelTypeSystem.Data\ParallelTypeSystem.Data.csproj">
-      <Project>{f12f59a7-6fa0-4323-a237-a800fd498987}</Project>
+      <Project>{4b873d10-8895-473c-a0d0-34d23bfd39bf}</Project>
       <Name>ParallelTypeSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParallelTypeSystem.Models\ParallelTypeSystem.Models.csproj">
+      <Project>{8b1a04e1-86d4-4d9a-8ed7-8dd9da83fe52}</Project>
+      <Name>ParallelTypeSystem.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

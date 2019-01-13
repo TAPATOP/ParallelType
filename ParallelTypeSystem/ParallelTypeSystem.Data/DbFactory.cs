@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ParallelTypeSystem.Data
+﻿namespace ParallelTypeSystem.Data
 {
     public class DbFactory : IDbFactory
     {
-        ParallelTypeSystemEntities dbContext;
+        ParallelTypeSystemDbContext dbContext;
 
-        public ParallelTypeSystemEntities GetContext()
+        public ParallelTypeSystemDbContext GetContext()
         {
-            return dbContext ?? (dbContext = new ParallelTypeSystemEntities());
+            return dbContext ?? (dbContext = new ParallelTypeSystemDbContext());
         }
     }
 }

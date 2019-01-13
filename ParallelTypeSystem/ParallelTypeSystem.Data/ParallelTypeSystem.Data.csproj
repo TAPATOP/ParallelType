@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F12F59A7-6FA0-4323-A237-A800FD498987}</ProjectGuid>
+    <ProjectGuid>{4B873D10-8895-473C-A0D0-34D23BFD39BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ParallelTypeSystem.Data</RootNamespace>
     <AssemblyName>ParallelTypeSystem.Data</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -54,7 +54,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
@@ -68,66 +67,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbFactory.cs" />
-    <Compile Include="File.cs">
-      <DependentUpon>ParallelTypeModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FileVersion.cs">
-      <DependentUpon>ParallelTypeModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="IDbFactory.cs" />
-    <Compile Include="ParallelTypeModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ParallelTypeModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ParallelTypeModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ParallelTypeModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ParallelTypeModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ParallelTypeModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="PermissionType.cs">
-      <DependentUpon>ParallelTypeModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="ParallelTypeSystemDbContext.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs">
-      <DependentUpon>ParallelTypeModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UsersFile.cs">
-      <DependentUpon>ParallelTypeModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="ParallelTypeModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ParallelTypeModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="ParallelTypeModel.edmx.diagram">
-      <DependentUpon>ParallelTypeModel.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ParallelTypeModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ParallelTypeModel.edmx</DependentUpon>
-      <LastGenOutput>ParallelTypeModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ParallelTypeModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ParallelTypeModel.edmx</DependentUpon>
-      <LastGenOutput>ParallelTypeModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ProjectReference Include="..\ParallelTypeSystem.Common\ParallelTypeSystem.Common.csproj">
+      <Project>{2046f1cc-385a-492e-81ba-ab716da5d6af}</Project>
+      <Name>ParallelTypeSystem.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParallelTypeSystem.Models\ParallelTypeSystem.Models.csproj">
+      <Project>{8b1a04e1-86d4-4d9a-8ed7-8dd9da83fe52}</Project>
+      <Name>ParallelTypeSystem.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

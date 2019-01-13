@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using ParallelTypeSystem.Models.DomainModels;
+using ParallelTypeSystem.Models.DTOs;
 
 namespace ParallelTypeSystem.Web.Utils
 {
-    public class AutomapperConfig
+    public static class AutomapperConfig
     {
         public static void ConfigureMappings()
         {
             Mapper.Initialize(config =>
             {
+                config.CreateMap<User, UserDTO>();
             });
         }
     }

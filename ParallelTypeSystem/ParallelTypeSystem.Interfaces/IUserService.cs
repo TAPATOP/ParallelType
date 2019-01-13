@@ -1,16 +1,12 @@
-﻿using ParallelTypeSystem.Data;
-using System;
-using System.Collections.Generic;
+﻿using ParallelTypeSystem.Models.DTOs;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParallelTypeSystem.Interfaces
 {
     public interface IUserService
     {
-        IQueryable<User> GetAll();
+        IQueryable<UserDTO> GetAll();
 
-        User GetByUsername(string username);
+        UserDTO GetUser(string username);
     }
 }
