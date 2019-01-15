@@ -44,7 +44,14 @@ namespace ParallelTypeSystem.Web.Controllers
             if (file != null)
             {
                 var access = this.HasFileAccess(file, User.Identity.GetUserId());
-                
+
+                if (!access.Item1)
+                {
+                    ViewBag.ErrorMessage = "You don't have access to this file";
+                    viewModel.IsSet = false;
+                    return View(viewModel);
+                }
+
                 viewModel.Name = file.Name;
                 viewModel.Content = this.CalculateContent(file.Id, file);
                 return View(viewModel);

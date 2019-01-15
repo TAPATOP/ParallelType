@@ -199,3 +199,73 @@ hr {
 	width: 35px;
 	height: 35px;
 }
+
+.edit-wrapper {
+    padding: 15px;
+    background-color: #c2c2c2;
+    color: black;
+    height: 84%;
+}
+
+.blink-wrapper{
+    position: relative;
+}
+
+.blinking-cursor {
+  font-weight: 100;
+  font-size: 18px;
+  color: #2E3D48;
+  position: absolute;
+  left: -2px;
+  top: -5px;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-moz-keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-webkit-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-ms-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-o-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
