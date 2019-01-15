@@ -1,6 +1,4 @@
-﻿using AutoMapper.QueryableExtensions;
-using ParallelTypeSystem.Interfaces;
-using ParallelTypeSystem.Models.DTOs;
+﻿using ParallelTypeSystem.Interfaces;
 using System.Web.Http;
 
 namespace ParallelTypeSystem.Web.Controllers

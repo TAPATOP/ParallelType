@@ -182,19 +182,36 @@
                 .append(nameInput)
                 .append(publicRead)
                 .append(publicWrite)
+            $('.modal form').attr('action', '/Documents/AddNewFile');
             showModal('Add new document', result.html());
         }
     });
 
     function closeModal() {
-        debugger;
         $('.modal-submit-button').removeAttr('disabled');
     }
 
     function submitForm(btn) {
         $(btn).attr('disabled', 'disabled');
+        var form = $(btn).closest('form');
+        var action = $(form).attr('action');
+        var data = $(form).serializeArray();
 
-        //TODO: ajax
+        $.ajax({
+            method: "post",
+            url: action,
+            data: data,
+            success: function (res) {
+                debugger;
+                $('.modal-submit-button').removeAttr('disabled');
+            },
+            error: function (err) {
+                console.log(err);
+                var message = $('<div style="color: red">Error occured</div>');
+                $('.modal form .modal-body').append(message);
+                $('.modal-submit-button').removeAttr('disabled');
+            }
+        });
 
         return false;
     }

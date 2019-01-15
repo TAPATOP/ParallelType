@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ParallelTypeSystem.Models.DomainModels;
+using ParallelTypeSystem.Web.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,7 @@ using System.Web.Mvc;
 
 namespace ParallelTypeSystem.Web.Controllers
 {
-    [System.Web.Mvc.Authorize]
+    [Authorize]
     public class CookieController : Controller
     {
         private ApplicationSignInManager _signInManager;
