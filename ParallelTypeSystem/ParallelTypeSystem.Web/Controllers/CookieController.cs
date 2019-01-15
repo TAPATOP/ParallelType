@@ -433,7 +433,7 @@ namespace ParallelTypeSystem.Web.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("ViewAll", "Documents");
+            return RedirectToAction("Editor", "Documents");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

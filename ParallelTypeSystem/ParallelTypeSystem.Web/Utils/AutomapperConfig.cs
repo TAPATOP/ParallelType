@@ -12,6 +12,7 @@ namespace ParallelTypeSystem.Web.Utils
             Mapper.Initialize(config =>
             {
                 config.CreateMap<User, UserDTO>();
+                config.CreateMap<File, FileDTO>();
                 config.CreateMap<AddFileViewModel, File>();
             });
         }

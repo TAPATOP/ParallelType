@@ -1,4 +1,6 @@
-﻿<link rel="stylesheet" href="~/Content/text-editor-style.css"/>
+﻿@model ParallelTypeSystem.Web.Models.DocumentViewModel
+
+<link rel="stylesheet" href="~/Content/text-editor-style.css"/>
 
 <div class="main-panel">
     <div class="left-sidebar">
@@ -15,41 +17,15 @@
         </div>
         <hr>
         <div class="other-files">
-            <div class="other-file">
-                <div class="file-header">
-                    This is the title of the file
+            @for (int i = 0; i < Model.Files.Count; i++)
+            {
+                <div class="other-file">
+                    <div class="file-header">
+                        <a href="/Documents/Editor/@Model.Files[i].Guid">@Model.Files[i].Name</a>
+                    </div>
                 </div>
-                <div class="file-content">
-                    Some random text here 11234
-                </div>
-            </div>
-            <div class="file-separator"></div>
-            <div class="other-file">
-                <div class="file-header">
-                    This is the title of the file
-                </div>
-                <div class="file-content">
-                    Some random text here 11234
-                </div>
-            </div>
-            <div class="file-separator"></div>
-            <div class="other-file">
-                <div class="file-header">
-                    This is the title of the file
-                </div>
-                <div class="file-content">
-                    Some random text here 11234
-                </div>
-            </div>
-            <div class="file-separator"></div>
-            <div class="other-file">
-                <div class="file-header">
-                    This is the title of the file
-                </div>
-                <div class="file-content">
-                    Some random text here 11234
-                </div>
-            </div>
+                <div class="file-separator"></div>
+            }
         </div>
     </div>
 
@@ -99,7 +75,10 @@
         </div>
         <hr>
         <div class="text-field">
-            <textarea></textarea>
+            @if (Model.IsSet)
+            {
+                <div class="edit-wrapper">@Html.Raw(Model.Content)</div>
+            }
         </div>
     </div>
 
@@ -156,10 +135,11 @@
 </div><!-- /.modal -->
 
 <script>
-    function showModal(title, bodyHtml) {
+    function showModal(title, bodyHtml, dataId) {
         $('#myModal .modal-title').html(title);
         $('#myModal .modal-body').html(bodyHtml);
         $('#myModal').modal('show');
+        $('.modal-submit-button').attr('data-id', dataId);
     }
 
     $('.button').click(function (e) {
@@ -183,7 +163,7 @@
                 .append(publicRead)
                 .append(publicWrite)
             $('.modal form').attr('action', '/Documents/AddNewFile');
-            showModal('Add new document', result.html());
+            showModal('Add new document', result.html(), 'AddNewFile');
         }
     });
 
@@ -191,24 +171,68 @@
         $('.modal-submit-button').removeAttr('disabled');
     }
 
+    function normalize(data) {
+        var result = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var value = data[i].value;
+            if (data[i].type == "checkbox") {
+                value = $(data[i]).prop('checked');
+            }
+
+            var item = { name: data[i].name, value: value };
+            result.push(item);
+        }
+
+        return result;
+    }
+
+    function displayError() {
+        var errorBox = $('.modal form .error-box');
+        if (errorBox.length > 0) {
+            errorBox.show();
+        }
+        else {
+            var message = $('<div style="color: red" class="error-box">Error occured</div>');
+            $('.modal form .modal-body').append(message);
+        }
+    }
+
+    function removeError() {
+        var errorBox = $('.modal form .error-box');
+        if (errorBox.length > 0) {
+            errorBox.hide();
+        }
+    }
+
     function submitForm(btn) {
         $(btn).attr('disabled', 'disabled');
         var form = $(btn).closest('form');
         var action = $(form).attr('action');
-        var data = $(form).serializeArray();
+        var data = $(form).find('input');
+        data = normalize(data);
 
         $.ajax({
             method: "post",
             url: action,
             data: data,
             success: function (res) {
-                debugger;
+                if (res.success) {
+                    removeError();
+
+                    var dataId = $('.modal-submit-button').attr('data-id');
+                    if (dataId == 'AddNewFile') {
+                        window.location.href = '/Documents/AddNewFile/' + res.guid;
+                    }
+                }
+                else {
+                    displayError();
+                }
                 $('.modal-submit-button').removeAttr('disabled');
             },
             error: function (err) {
                 console.log(err);
-                var message = $('<div style="color: red">Error occured</div>');
-                $('.modal form .modal-body').append(message);
+                displayError();
                 $('.modal-submit-button').removeAttr('disabled');
             }
         });

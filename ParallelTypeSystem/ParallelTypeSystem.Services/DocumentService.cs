@@ -6,6 +6,7 @@ using ParallelTypeSystem.Models.DomainModels;
 using ParallelTypeSystem.Models.DTOs;
 using System.Linq;
 using System;
+using ParallelTypeSystem.Data;
 
 namespace ParallelTypeSystem.Services
 {
