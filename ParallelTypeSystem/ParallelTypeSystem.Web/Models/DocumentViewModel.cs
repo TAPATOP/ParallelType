@@ -14,6 +14,8 @@ namespace ParallelTypeSystem.Web.Models
 
         public string Content { get; set; }
 
+        public string Guid { get; set; }
+
         public List<FileDTO> Files { get; set; }
     }
 }

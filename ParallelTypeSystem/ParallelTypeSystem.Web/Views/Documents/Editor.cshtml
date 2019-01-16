@@ -80,6 +80,7 @@
         <div class="text-field">
             @if (Model.IsSet)
             {
+                @Html.HiddenFor(model => model.Guid)
                 <div tabindex="0" class="edit-wrapper">@Html.Raw(Model.Content)</div>
             }
         </div>
@@ -138,9 +139,15 @@
 </div><!-- /.modal -->
 
 <script>
+    var changedData = [];
     $(".text-field").hover(function () { this.focus(); }, function () { this.blur(); });
 
     var isClicked = false;
+
+    @if (Model.IsSet)
+    {
+        @: setInterval(function () { sendChangedData() }, 500);
+    }
 
     $(".text-field").click(function () {
         if (!isClicked) {
@@ -165,6 +172,7 @@
             }
         }
         else if (e.keyCode == 38) {
+            // up
             var previousBr = blink.prev('br');
             if (previousBr.length == 0) {
                 var elementsOnSameRow = blink.prevUntil('br');
@@ -226,7 +234,12 @@
             // backspace
             var prev = blink.prev();
             if (prev.length > 0) {
+                var text = prev[0].outerHTML;
                 prev.remove();
+
+                var allPreviousElements = blink.prevAll().toArray().reverse();
+                var html = getFullHtmlOfList(allPreviousElements);
+                changedData.push({ ChangeType: 'Delete', Position: html.length, Value: text });
             }
         }
         else if (e.keyCode == 46) {
@@ -254,7 +267,14 @@
             if (letter == ' ') {
                 letter = '&nbsp;';
             }
-            var item = $('<span>' + letter + '</span>');
+
+            var text = '<span>' + letter + '</span>';
+
+            var allPreviousElements = blink.prevAll().toArray().reverse();
+            var html = getFullHtmlOfList(allPreviousElements);
+            changedData.push({ ChangeType: 'Add', Position: html.length, Value: text });
+
+            var item = $(text);
             item.insertAfter(blink);
 
             var newBlink = $('@Html.Raw(blink)');
@@ -333,6 +353,16 @@
         }
     }
 
+    function getFullHtmlOfList(data) {
+        var len = data.length;
+        var result = "";
+        for (var i = 0; i < len; i++) {
+            result += data[i].outerHTML;
+        }
+
+        return result;
+    }
+
     function submitForm(btn) {
         $(btn).attr('disabled', 'disabled');
         var form = $(btn).closest('form');
@@ -366,5 +396,36 @@
         });
 
         return false;
+    }
+
+    function sendChangedData() {
+        var data = changedData;
+        changedData = [];
+        var guid = $('#Guid').val();
+
+        var objToSent = {
+            Changes: data,
+            Guid: guid
+        };
+        $.ajax({
+            method: "post",
+            url: '/Documents/ApplyChanges',
+            data: objToSent,
+            success: function (res) {
+                var currentHtml = $('.edit-wrapper').html().replace('<span class="blink-wrapper"><span class="blinking-cursor">|</span></span>', '');
+                if (currentHtml != res.result) {
+                    var blink = $('.blink-wrapper');
+                    var index = blink.prevAll().length;
+                    $('.edit-wrapper').html(res.result);
+                    var span = $($('.edit-wrapper').children()[index]);
+
+                    var newBlink = $('@Html.Raw(blink)');
+                    newBlink.insertBefore(span);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
     }
 </script>

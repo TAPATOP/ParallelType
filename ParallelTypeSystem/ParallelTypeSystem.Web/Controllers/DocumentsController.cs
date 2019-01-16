@@ -54,6 +54,7 @@ namespace ParallelTypeSystem.Web.Controllers
 
                 viewModel.Name = file.Name;
                 viewModel.Content = this.CalculateContent(file.Id, file);
+                viewModel.Guid = file.Guid;
                 return View(viewModel);
             }
             else
@@ -110,6 +111,56 @@ namespace ParallelTypeSystem.Web.Controllers
             return Json(new { success = true, guid = file.Guid }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult ApplyChanges(ChangesViewModel viewModel)
+        {
+            var file = this.dbContext.Files.FirstOrDefault(x => x.Guid == viewModel.Guid);
+            var content = this.CalculateContent(file.Id, file);
+            
+            if (viewModel.Changes == null || viewModel.Changes.Count == 0)
+            {
+                return Json(new { success = true, result = content }, JsonRequestBehavior.AllowGet);
+            }
+            
+            var sb = new StringBuilder();
+            sb.Append(content);
+
+            var query = this.dbContext.FileVersions
+              .Where(x => x.FileId == file.Id)
+              .OrderByDescending(x => x.Version);
+            
+            foreach (var change in viewModel.Changes)
+            {
+                switch (change.ChangeType)
+                {
+                    case ChangeType.Add:
+                        sb.Insert(change.Position, change.Value);
+                        break;
+                    case ChangeType.Delete:
+                        sb.Remove(change.Position, change.Value.Length);
+                        break;
+                }
+            }
+
+            var result = sb.ToString();
+
+            var fileVersion = query.FirstOrDefault();
+            var newVersion = new FileVersion
+            {
+                Directory = fileVersion.Directory,
+                FileId = fileVersion.FileId,
+                ModifiedAt = DateTime.Now,
+                Version = fileVersion.Version + 1,
+            };
+
+            this.dbContext.FileVersions.Add(newVersion);
+            this.dbContext.SaveChanges();
+            var filePath = this.GetFullFilePath(newVersion);
+            System.IO.File.WriteAllText(filePath, result);
+
+            return Json(new { success = true, result = result }, JsonRequestBehavior.AllowGet);
+        }
+
         private string GetFullFilePath(string filename, string directory, int version)
         {
             var path = System.IO.Path.Combine(directory, filename + "_" + version + ".txt");
@@ -118,8 +169,9 @@ namespace ParallelTypeSystem.Web.Controllers
 
         private string GetFullFilePath(FileVersion fileVersion)
         {
+            var file = this.GetFile(fileVersion.FileId);
             var directory = fileVersion.Directory;
-            var fileName = fileVersion.File.Name;
+            var fileName = file.Name;
             var version = fileVersion.Version;
             var result = this.GetFullFilePath(fileName, directory, version);
             return result;
@@ -129,7 +181,7 @@ namespace ParallelTypeSystem.Web.Controllers
         {
             var query = this.dbContext.FileVersions
                 .Where(x => x.FileId == fileId)
-                .OrderBy(x => x.Version);
+                .OrderByDescending(x => x.Version);
 
             var fileVersion = query.FirstOrDefault();
 
@@ -143,8 +195,8 @@ namespace ParallelTypeSystem.Web.Controllers
                 return sb.ToString();
             }
 
-            var changesViewModel = JsonConvert.DeserializeObject<ChangesViewModel>(fileVersion.Changes);
-            foreach (var change in changesViewModel.Changes)
+            var changes = JsonConvert.DeserializeObject<List<SingleChange>>(fileVersion.Changes);
+            foreach (var change in changes)
             {
                 switch (change.ChangeType)
                 {
@@ -212,6 +264,12 @@ namespace ParallelTypeSystem.Web.Controllers
                 });
 
             var result = files.Union(createdFiles).ToList();
+            return result;
+        }
+
+        private File GetFile(int fileId)
+        {
+            var result = this.dbContext.Files.FirstOrDefault(x => x.Id == fileId);
             return result;
         }
     }
