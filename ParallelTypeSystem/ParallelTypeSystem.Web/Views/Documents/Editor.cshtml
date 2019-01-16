@@ -261,7 +261,7 @@
 
     $('.text-field').keypress(function (e) {
         var inp = String.fromCharCode(e.keyCode);
-        if (/[a-zA-Z0-9-_ ]/.test(inp)) {
+        if (/[a-zA-Z0-9-_!@@#$%^&*()=+~ ]/.test(inp)) {
             var letter = String.fromCharCode(e.keyCode);
             var blink = $('.blink-wrapper');
             if (letter == ' ') {
